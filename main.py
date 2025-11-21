@@ -402,16 +402,16 @@ def show_login():
     login_root.geometry(WINDOW_SIZE)
     login_root.resizable(False, False)
 
-    frame = ttk.Frame(login_root, padding=20)
+    frame = ttk.Frame(login_root, padding=40)
     frame.pack(expand=True)
 
-    ttk.Label(frame, text="Kullanıcı Adı").grid(row=0, column=0, padx=5, pady=5, sticky=tk.W)
-    user_entry = ttk.Entry(frame)
-    user_entry.grid(row=0, column=1, padx=5, pady=5)
+    ttk.Label(frame, text="Kullanıcı Adı").grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
+    user_entry = ttk.Entry(frame, width=32)
+    user_entry.grid(row=0, column=1, padx=10, pady=10)
 
-    ttk.Label(frame, text="Şifre").grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
-    pass_entry = ttk.Entry(frame, show="*")
-    pass_entry.grid(row=1, column=1, padx=5, pady=5)
+    ttk.Label(frame, text="Şifre").grid(row=1, column=0, padx=10, pady=10, sticky=tk.W)
+    pass_entry = ttk.Entry(frame, show="*", width=32)
+    pass_entry.grid(row=1, column=1, padx=10, pady=10)
 
     def attempt_login(event=None):
         username = user_entry.get().strip()
@@ -426,7 +426,9 @@ def show_login():
     login_button = ttk.Button(frame, text="Giriş", command=attempt_login)
     login_button.grid(row=2, column=0, columnspan=2, pady=10)
 
-    ttk.Label(frame, text="Created by: Arda UÇAK").grid(row=3, column=0, columnspan=2, pady=(0, 5))
+    footer = ttk.Frame(login_root)
+    footer.pack(side=tk.BOTTOM, fill=tk.X, padx=20, pady=15)
+    ttk.Label(footer, text="Created by: Arda UÇAK").pack(side=tk.RIGHT)
 
     login_root.bind("<Return>", attempt_login)
     user_entry.focus()

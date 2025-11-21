@@ -1,6 +1,6 @@
 # spindletakip – Takip Sistemi GUI Overview
 
-This application opens with a login screen titled **"Giriş Ekranı"** that matches the main window size (**1100×650**) and shows the footer text **"Created by: Arda UÇAK"**. Enter the credentials **BAKIM** / **MAXIME** to reach the main window titled **"Takip Sistemi"**.
+This application opens with a login screen titled **"Giriş Ekranı"** that matches the main window size (**1100×650**). The centered form uses widened **Kullanıcı Adı** and **Şifre** fields with generous spacing, and the footer text **"Created by: Arda UÇAK"** appears in the bottom-right corner. Enter the credentials **BAKIM** / **MAXIME** to reach the main window titled **"Takip Sistemi"**.
 
 ## Spindle Takip Sistemi Tab
 - **Search bar:** A labeled field "Referans ID ile Ara" with an **Ara** button to filter by Referans ID.【F:main.py†L139-L145】
