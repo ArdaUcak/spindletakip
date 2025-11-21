@@ -1,6 +1,6 @@
 # Takip Sistemi GUI Overview
 
-This application opens with a login screen titled **"Giriş Ekranı"**. After entering the credentials `BAKIM` / `MAXIME`, the main window appears with the title **"Takip Sistemi"** and a fixed size of 1100×650 pixels.
+This application opens with a login screen titled **"Giriş Ekranı"**. Enter the credentials **BAKIM** / **MAXIME** to reach the main window titled **"Takip Sistemi"** (fixed size 1100×650).
 
 ## Spindle Takip Sistemi Tab
 - **Form row:** Entries for **Referans ID**, **Çalışma Saati**, and **Son Güncelleme** (pre-filled with today’s date).【F:main.py†L139-L152】
