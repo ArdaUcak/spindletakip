@@ -399,10 +399,11 @@ class MainApp:
 def show_login():
     login_root = tk.Tk()
     login_root.title(LOGIN_TITLE)
+    login_root.geometry(WINDOW_SIZE)
     login_root.resizable(False, False)
 
     frame = ttk.Frame(login_root, padding=20)
-    frame.pack()
+    frame.pack(expand=True)
 
     ttk.Label(frame, text="Kullanıcı Adı").grid(row=0, column=0, padx=5, pady=5, sticky=tk.W)
     user_entry = ttk.Entry(frame)
@@ -424,6 +425,8 @@ def show_login():
 
     login_button = ttk.Button(frame, text="Giriş", command=attempt_login)
     login_button.grid(row=2, column=0, columnspan=2, pady=10)
+
+    ttk.Label(frame, text="Created by: Arda UÇAK").grid(row=3, column=0, columnspan=2, pady=(0, 5))
 
     login_root.bind("<Return>", attempt_login)
     user_entry.focus()

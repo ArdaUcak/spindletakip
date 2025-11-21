@@ -1,6 +1,6 @@
-# Takip Sistemi GUI Overview
+# spindletakip – Takip Sistemi GUI Overview
 
-This application opens with a login screen titled **"Giriş Ekranı"**. Enter the credentials **BAKIM** / **MAXIME** to reach the main window titled **"Takip Sistemi"** (fixed size 1100×650).
+This application opens with a login screen titled **"Giriş Ekranı"** that matches the main window size (**1100×650**) and shows the footer text **"Created by: Arda UÇAK"**. Enter the credentials **BAKIM** / **MAXIME** to reach the main window titled **"Takip Sistemi"**.
 
 ## Spindle Takip Sistemi Tab
 - **Search bar:** A labeled field "Referans ID ile Ara" with an **Ara** button to filter by Referans ID.【F:main.py†L139-L145】
@@ -25,3 +25,6 @@ Run the app with Python 3.12 using:
 python main.py
 ```
 The login window appears first; after entering the credentials, the main notebook opens with the Spindle and Yedek tabs.
+
+## Depo Adı
+Depo adı **spindletakip** olarak güncellense de uygulama dosyaları (örneğin `main.py`) aynen korunur; mevcut dizinden (`spindletakip2` klasörü) çalıştırmaya devam edebilirsiniz.
