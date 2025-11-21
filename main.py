@@ -403,7 +403,7 @@ def show_login():
     login_root.resizable(False, False)
 
     frame = ttk.Frame(login_root, padding=40)
-    frame.pack(expand=True)
+    frame.place(relx=0.5, rely=0.22, anchor="n")
 
     ttk.Label(frame, text="Kullanıcı Adı").grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
     user_entry = ttk.Entry(frame, width=32)
