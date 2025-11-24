@@ -5,13 +5,17 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from datetime import datetime
 
-APP_TITLE = "Takip Sistemi"
+APP_TITLE = "STS"
 LOGIN_TITLE = "Giriş Ekranı"
 USERNAME = "BAKIM"
 PASSWORD = "MAXIME"
 WINDOW_SIZE = "1100x650"
 LOGIN_WINDOW_SIZE = "500x350"
 DATE_FORMAT = "%d-%m-%Y"
+
+
+def current_datetime_text():
+    return datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
 
 def resource_path(filename: str) -> str:
@@ -132,6 +136,7 @@ class MainApp:
         )
 
         self._build_ui()
+        self._start_clock()
         self._refresh_spindle_tree()
         self._refresh_yedek_tree()
 
@@ -151,11 +156,20 @@ class MainApp:
         style.configure("Treeview", rowheight=26)
         style.map("Accent.TButton", foreground=[("pressed", "#0b5ed7"), ("active", "#0b5ed7")])
 
+    def _start_clock(self):
+        def tick():
+            if hasattr(self, "datetime_label"):
+                self.datetime_label.configure(text=current_datetime_text())
+            self.root.after(1000, tick)
+
+        tick()
+
     def _build_ui(self):
         header = ttk.Frame(self.root, padding=(12, 8))
         header.pack(fill=tk.X)
-        ttk.Label(header, text="Takip Sistemi", style="Header.TLabel").pack(side=tk.LEFT)
-        ttk.Label(header, text="Spindle & Yedek işlemleri", style="Subheader.TLabel").pack(side=tk.LEFT, padx=(10, 0))
+        ttk.Label(header, text="STS", style="Header.TLabel").pack(side=tk.LEFT)
+        self.datetime_label = ttk.Label(header, text=current_datetime_text(), style="Subheader.TLabel")
+        self.datetime_label.pack(side=tk.RIGHT)
 
         notebook = ttk.Notebook(self.root)
         notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
@@ -200,7 +214,8 @@ class MainApp:
         ]
         self.spindle_tree = ttk.Treeview(tree_frame, columns=columns, show="headings")
         for col in columns:
-            self.spindle_tree.heading(col, text=col)
+            heading_text = "İD" if col == "id" else col
+            self.spindle_tree.heading(col, text=heading_text)
             self.spindle_tree.column(col, width=150, anchor=tk.W)
         self.spindle_tree.pack(fill=tk.BOTH, expand=True)
 
@@ -234,7 +249,8 @@ class MainApp:
         ]
         self.yedek_tree = ttk.Treeview(tree_frame, columns=columns, show="headings")
         for col in columns:
-            self.yedek_tree.heading(col, text=col)
+            heading_text = "İD" if col == "id" else col
+            self.yedek_tree.heading(col, text=heading_text)
             self.yedek_tree.column(col, width=150, anchor=tk.W)
         self.yedek_tree.pack(fill=tk.BOTH, expand=True)
 
@@ -490,21 +506,22 @@ def show_login():
     style = ttk.Style()
     if "clam" in style.theme_names():
         style.theme_use("clam")
-    style.configure("LoginCard.TFrame", padding=30)
-    style.configure("TLabel", font=("Segoe UI", 10))
+    login_bg = "#e5e7eb"
+    style.configure("LoginCard.TFrame", padding=30, background=login_bg)
+    style.configure("Login.TLabel", font=("Segoe UI", 10), background=login_bg)
     style.configure("TEntry", font=("Segoe UI", 11), padding=(6, 4))
     style.configure("Accent.TButton", padding=(12, 6))
 
-    login_root.configure(background="#f3f4f6")
+    login_root.configure(background=login_bg)
 
     frame = ttk.Frame(login_root, style="LoginCard.TFrame")
     frame.place(relx=0.5, rely=0.18, anchor="n")
 
-    ttk.Label(frame, text="Kullanıcı Adı").grid(row=0, column=0, padx=14, pady=12, sticky=tk.W)
+    ttk.Label(frame, text="Kullanıcı Adı", style="Login.TLabel").grid(row=0, column=0, padx=14, pady=12, sticky=tk.W)
     user_entry = ttk.Entry(frame, width=34)
     user_entry.grid(row=0, column=1, padx=14, pady=12)
 
-    ttk.Label(frame, text="Şifre").grid(row=1, column=0, padx=14, pady=12, sticky=tk.W)
+    ttk.Label(frame, text="Şifre", style="Login.TLabel").grid(row=1, column=0, padx=14, pady=12, sticky=tk.W)
     pass_entry = ttk.Entry(frame, show="*", width=34)
     pass_entry.grid(row=1, column=1, padx=14, pady=12)
 
@@ -523,7 +540,7 @@ def show_login():
 
     footer = ttk.Frame(login_root, style="LoginCard.TFrame")
     footer.place(relx=1.0, rely=1.0, anchor="se", x=-20, y=-15)
-    ttk.Label(footer, text="Created by: Arda UÇAK").pack(side=tk.RIGHT)
+    ttk.Label(footer, text="Created by: Arda UÇAK", style="Login.TLabel").pack(side=tk.RIGHT)
 
     login_root.bind("<Return>", attempt_login)
     user_entry.focus()
