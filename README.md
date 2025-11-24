@@ -1,6 +1,6 @@
 # spindletakip – STS GUI Overview
 
-This application opens with a login screen titled **"Giriş Ekranı"** sized **500×350**. The entire login surface now shares the soft gray tone used in the center card, which sits in the upper third and uses a modern **clam**-inspired style with widened **Kullanıcı Adı** and **Şifre** fields, a padded **Giriş** button, and the footer text **"Created by: Arda UÇAK"** sitting in the bottom-right corner. Enter the credentials **BAKIM** / **MAXIME** to reach the main window titled **"STS"**, whose header keeps the title and a live date-time display on the far right.【F:main.py†L18-L32】【F:main.py†L91-L121】【F:main.py†L398-L436】
+This application opens with a login screen titled **"Giriş Ekranı"** sized **500×350**. The entire login surface uses a clean white tone with a modern **clam**-style card in the upper third holding widened **Kullanıcı Adı** and **Şifre** fields plus a padded **Giriş** button. The footer text **"Created by: Arda UÇAK"** sits in the bottom-right corner. Enter the credentials **BAKIM** / **MAXIME** to reach the main window titled **"STS-SpindleTakipSistemi"**, which shows the title on the left and a live date-time display on the far right.【F:main.py†L8-L32】【F:main.py†L167-L180】【F:main.py†L502-L549】
 
 ## Spindle Takip Sistemi Tab
 - **Header & layout:** A compact header row sits above the notebook with bold title text; the tab itself uses framed sections for search and actions in a modern card style.【F:main.py†L86-L109】【F:main.py†L111-L152】
@@ -32,3 +32,4 @@ The login window appears first; after entering the credentials, the main noteboo
 
 ## Depo Adı
 Depo adı **spindletakip** olarak güncellense de uygulama dosyaları (örneğin `main.py`) aynen korunur; mevcut dizinden (`spindletakip2` klasörü) çalıştırmaya devam edebilirsiniz.
+

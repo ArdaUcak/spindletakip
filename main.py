@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from datetime import datetime
 
-APP_TITLE = "STS"
+APP_TITLE = "STS-SpindleTakipSistemi"
 LOGIN_TITLE = "Giriş Ekranı"
 USERNAME = "BAKIM"
 PASSWORD = "MAXIME"
@@ -167,9 +167,12 @@ class MainApp:
     def _build_ui(self):
         header = ttk.Frame(self.root, padding=(12, 8))
         header.pack(fill=tk.X)
-        ttk.Label(header, text="STS", style="Header.TLabel").pack(side=tk.LEFT)
+        header.columnconfigure(1, weight=1)
+
+        ttk.Label(header, text=APP_TITLE, style="Header.TLabel").grid(row=0, column=0, sticky=tk.W)
+
         self.datetime_label = ttk.Label(header, text=current_datetime_text(), style="Subheader.TLabel")
-        self.datetime_label.pack(side=tk.RIGHT)
+        self.datetime_label.grid(row=0, column=1, sticky=tk.E)
 
         notebook = ttk.Notebook(self.root)
         notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
@@ -506,7 +509,7 @@ def show_login():
     style = ttk.Style()
     if "clam" in style.theme_names():
         style.theme_use("clam")
-    login_bg = "#e5e7eb"
+    login_bg = "#ffffff"
     style.configure("LoginCard.TFrame", padding=30, background=login_bg)
     style.configure("Login.TLabel", font=("Segoe UI", 10), background=login_bg)
     style.configure("TEntry", font=("Segoe UI", 11), padding=(6, 4))
