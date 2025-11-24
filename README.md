@@ -1,6 +1,6 @@
 # spindletakip – STS GUI Overview
 
-This application opens with a login screen titled **"Giriş Ekranı"** sized **500×350**. The entire login surface uses a clean white tone with a modern **clam**-style card in the upper third holding widened **Kullanıcı Adı** and **Şifre** fields plus a padded **Giriş** button. The footer text **"Created by: Arda UÇAK"** sits in the bottom-right corner. Enter the credentials **BAKIM** / **MAXIME** to reach the main window titled **"STS-SpindleTakipSistemi"**, which shows the title on the left and a live date-time display on the far right.【F:main.py†L8-L32】【F:main.py†L167-L180】【F:main.py†L502-L549】
+This application opens with a login screen titled **"Giriş Ekranı"** sized **500×350**. The entire login surface uses a clean white tone with a modern **clam**-style card in the upper third holding widened **Kullanıcı Adı** and **Şifre** fields plus a padded **Giriş** button. The footer text **"Created by: Arda UÇAK"** sits in the bottom-right corner. Enter the credentials **BAKIM** / **MAXIME** to reach the main window titled **"STS-SpindleTakipSistemi"**, which shows the title on the left, a bold **HORSE** label centered in the header, and a live date-time display on the far right.【F:main.py†L8-L32】【F:main.py†L168-L186】【F:main.py†L504-L551】
 
 ## Spindle Takip Sistemi Tab
 - **Header & layout:** A compact header row sits above the notebook with bold title text; the tab itself uses framed sections for search and actions in a modern card style.【F:main.py†L86-L109】【F:main.py†L111-L152】
