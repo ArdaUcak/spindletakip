@@ -1,16 +1,17 @@
 # spindletakip – Takip Sistemi GUI Overview
 
-This application opens with a login screen titled **"Giriş Ekranı"** sized **500×350**. The widened **Kullanıcı Adı** and **Şifre** fields sit in the upper third of the window with generous spacing, and the footer text **"Created by: Arda UÇAK"** appears in the bottom-right corner. Enter the credentials **BAKIM** / **MAXIME** to reach the main window titled **"Takip Sistemi"**.
+This application opens with a login screen titled **"Giriş Ekranı"** sized **500×350**. The upper-third card layout uses a modern **clam**-inspired style with widened **Kullanıcı Adı** and **Şifre** fields, a padded **Giriş** button, and the footer text **"Created by: Arda UÇAK"** sitting in the bottom-right corner. Enter the credentials **BAKIM** / **MAXIME** to reach the main window titled **"Takip Sistemi"**.【F:main.py†L18-L26】【F:main.py†L398-L436】
 
 ## Spindle Takip Sistemi Tab
-- **Search bar:** A labeled field "Referans ID ile Ara" with an **Ara** button to filter by Referans ID.【F:main.py†L139-L145】
-- **Actions:** Buttons **Spindle Ekle**, **Seçileni Sil**, and **Seçileni Düzenle** aligned on one row. Add/edit buttons open a modal dialog to capture **Referans ID**, **Çalışma Saati**, **Takılı Olduğu Makine**, and **Makinaya Takıldığı Tarih** (defaults to today); **Son Güncelleme** is stamped automatically with the current date in **GG-AA-YYYY** order when saving.【F:main.py†L147-L174】【F:main.py†L263-L304】
-- **Table:** Treeview listing columns **id**, **Referans ID**, **Çalışma Saati**, **Takılı Olduğu Makine**, **Makinaya Takıldığı Tarih**, and **Son Güncelleme**.【F:main.py†L177-L185】
+- **Header & layout:** A compact header row sits above the notebook with bold title text; the tab itself uses framed sections for search and actions in a modern card style.【F:main.py†L86-L109】【F:main.py†L111-L152】
+- **Search bar:** A labeled field "Referans ID ile Ara" with an accented **Ara** button to filter by Referans ID.【F:main.py†L138-L145】
+- **Actions:** Buttons **Spindle Ekle**, **Seçileni Sil**, and **Seçileni Düzenle** sit in a padded frame. Add/edit buttons open a modal dialog to capture **Referans ID**, **Çalışma Saati**, **Takılı Olduğu Makine**, and **Makinaya Takıldığı Tarih** (defaults to today); **Son Güncelleme** is stamped automatically with the current date in **GG-AA-YYYY** order when saving.【F:main.py†L147-L174】【F:main.py†L263-L304】
+- **Table:** Treeview listing columns **id**, **Referans ID**, **Çalışma Saati**, **Takılı Olduğu Makine**, **Makinaya Takıldığı Tarih**, and **Son Güncelleme**, with alternating row shading for readability.【F:main.py†L156-L186】
 
 ## Yedek Takip Sistemi Tab
-- **Search bar:** "Referans ID ile Ara" input with an **Ara** button to filter by Referans ID.【F:main.py†L183-L189】
-- **Actions:** Buttons **Yedek Ekle**, **Seçileni Sil**, and **Seçileni Düzenle** arranged on a single row. Add/edit buttons open a modal dialog to capture **Referans ID**, **Açıklama**, **Tamirde mi** (readonly dropdown with **Evet/Hayır**), **Bakıma Gönderilme**, **Geri Dönme**, **Söküldüğü Makine**, and **Sökülme Tarihi** (date defaults to today); **Son Güncelleme** auto-fills with the current date in **GG-AA-YYYY** order at save time (other date fields still default to today for convenience).【F:main.py†L191-L223】【F:main.py†L310-L371】
-- **Table:** Treeview columns **id**, **Referans ID**, **Açıklama**, **Tamirde mi**, **Bakıma Gönderilme**, **Geri Dönme**, **Söküldüğü Makine**, **Sökülme Tarihi**, **Son Güncelleme**.【F:main.py†L224-L235】
+- **Search bar:** "Referans ID ile Ara" input with an accented **Ara** button to filter by Referans ID, wrapped in a card-styled frame.【F:main.py†L188-L195】
+- **Actions:** Buttons **Yedek Ekle**, **Seçileni Sil**, and **Seçileni Düzenle** arranged on a padded row. Add/edit buttons open a modal dialog to capture **Referans ID**, **Açıklama**, **Tamirde mi** (readonly dropdown with **Evet/Hayır**), **Bakıma Gönderilme**, **Geri Dönme**, **Söküldüğü Makine**, and **Sökülme Tarihi** (date defaults to today); **Son Güncelleme** auto-fills with the current date in **GG-AA-YYYY** order at save time (other date fields still default to today for convenience).【F:main.py†L197-L223】【F:main.py†L310-L371】
+- **Table:** Treeview columns **id**, **Referans ID**, **Açıklama**, **Tamirde mi**, **Bakıma Gönderilme**, **Geri Dönme**, **Söküldüğü Makine**, **Sökülme Tarihi**, **Son Güncelleme**, shaded with alternating rows for readability.【F:main.py†L203-L235】
 
 ## Export
 A bottom-right button labeled **"Excel'e Aktar (CSV)"** exports both tables to `takip_export.csv` in a sectioned format with the added machine and date fields.【F:main.py†L134-L137】【F:main.py†L354-L392】

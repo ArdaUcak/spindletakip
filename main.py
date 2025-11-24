@@ -103,6 +103,8 @@ class MainApp:
         self.root.geometry(WINDOW_SIZE)
         self.root.resizable(False, False)
 
+        self._configure_style()
+
         self.spindle_manager = DataManager(
             "spindle_data.csv",
             [
@@ -133,7 +135,28 @@ class MainApp:
         self._refresh_spindle_tree()
         self._refresh_yedek_tree()
 
+    def _configure_style(self):
+        style = ttk.Style()
+        if "clam" in style.theme_names():
+            style.theme_use("clam")
+
+        base_font = ("Segoe UI", 10)
+        style.configure("TLabel", font=base_font)
+        style.configure("Header.TLabel", font=("Segoe UI", 16, "bold"))
+        style.configure("Subheader.TLabel", font=("Segoe UI", 10))
+        style.configure("Accent.TButton", padding=(12, 6))
+        style.configure("TEntry", padding=(4, 2))
+        style.configure("Card.TLabelframe", padding=10)
+        style.configure("Card.TLabelframe.Label", font=("Segoe UI", 10, "bold"))
+        style.configure("Treeview", rowheight=26)
+        style.map("Accent.TButton", foreground=[("pressed", "#0b5ed7"), ("active", "#0b5ed7")])
+
     def _build_ui(self):
+        header = ttk.Frame(self.root, padding=(12, 8))
+        header.pack(fill=tk.X)
+        ttk.Label(header, text="Takip Sistemi", style="Header.TLabel").pack(side=tk.LEFT)
+        ttk.Label(header, text="Spindle & Yedek işlemleri", style="Subheader.TLabel").pack(side=tk.LEFT, padx=(10, 0))
+
         notebook = ttk.Notebook(self.root)
         notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
@@ -151,21 +174,21 @@ class MainApp:
         export_button.pack(side=tk.RIGHT)
 
     def _build_spindle_tab(self, parent):
-        search_frame = ttk.Frame(parent)
-        search_frame.pack(fill=tk.X, padx=10)
-        ttk.Label(search_frame, text="Referans ID ile Ara:").pack(side=tk.LEFT, padx=5, pady=5)
-        self.spindle_search_entry = ttk.Entry(search_frame)
-        self.spindle_search_entry.pack(side=tk.LEFT, padx=5, pady=5)
-        ttk.Button(search_frame, text="Ara", command=self._search_spindle).pack(side=tk.LEFT, padx=5, pady=5)
+        search_frame = ttk.LabelFrame(parent, text="Arama", padding=10, style="Card.TLabelframe")
+        search_frame.pack(fill=tk.X, padx=10, pady=(0, 6))
+        ttk.Label(search_frame, text="Referans ID ile Ara:").pack(side=tk.LEFT, padx=6)
+        self.spindle_search_entry = ttk.Entry(search_frame, width=28)
+        self.spindle_search_entry.pack(side=tk.LEFT, padx=6)
+        ttk.Button(search_frame, text="Ara", style="Accent.TButton", command=self._search_spindle).pack(side=tk.LEFT, padx=6)
 
-        btn_frame = ttk.Frame(parent)
-        btn_frame.pack(fill=tk.X, padx=10)
-        ttk.Button(btn_frame, text="Spindle Ekle", command=self._add_spindle_dialog).pack(side=tk.LEFT, padx=5, pady=5)
-        ttk.Button(btn_frame, text="Seçileni Sil", command=self._delete_spindle).pack(side=tk.LEFT, padx=5, pady=5)
-        ttk.Button(btn_frame, text="Seçileni Düzenle", command=self._edit_spindle_dialog).pack(side=tk.LEFT, padx=5, pady=5)
+        btn_frame = ttk.LabelFrame(parent, text="İşlemler", padding=10, style="Card.TLabelframe")
+        btn_frame.pack(fill=tk.X, padx=10, pady=6)
+        ttk.Button(btn_frame, text="Spindle Ekle", style="Accent.TButton", command=self._add_spindle_dialog).pack(side=tk.LEFT, padx=6, pady=2)
+        ttk.Button(btn_frame, text="Seçileni Sil", command=self._delete_spindle).pack(side=tk.LEFT, padx=6, pady=2)
+        ttk.Button(btn_frame, text="Seçileni Düzenle", command=self._edit_spindle_dialog).pack(side=tk.LEFT, padx=6, pady=2)
 
-        tree_frame = ttk.Frame(parent)
-        tree_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        tree_frame = ttk.Frame(parent, padding=(0, 6))
+        tree_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=(0, 10))
 
         columns = [
             "id",
@@ -182,21 +205,21 @@ class MainApp:
         self.spindle_tree.pack(fill=tk.BOTH, expand=True)
 
     def _build_yedek_tab(self, parent):
-        search_frame = ttk.Frame(parent)
-        search_frame.pack(fill=tk.X, padx=10)
-        ttk.Label(search_frame, text="Referans ID ile Ara:").pack(side=tk.LEFT, padx=5, pady=5)
-        self.yedek_search_entry = ttk.Entry(search_frame)
-        self.yedek_search_entry.pack(side=tk.LEFT, padx=5, pady=5)
-        ttk.Button(search_frame, text="Ara", command=self._search_yedek).pack(side=tk.LEFT, padx=5, pady=5)
+        search_frame = ttk.LabelFrame(parent, text="Arama", padding=10, style="Card.TLabelframe")
+        search_frame.pack(fill=tk.X, padx=10, pady=(0, 6))
+        ttk.Label(search_frame, text="Referans ID ile Ara:").pack(side=tk.LEFT, padx=6)
+        self.yedek_search_entry = ttk.Entry(search_frame, width=28)
+        self.yedek_search_entry.pack(side=tk.LEFT, padx=6)
+        ttk.Button(search_frame, text="Ara", style="Accent.TButton", command=self._search_yedek).pack(side=tk.LEFT, padx=6)
 
-        btn_frame = ttk.Frame(parent)
-        btn_frame.pack(fill=tk.X, padx=10)
-        ttk.Button(btn_frame, text="Yedek Ekle", command=self._add_yedek_dialog).pack(side=tk.LEFT, padx=5, pady=5)
-        ttk.Button(btn_frame, text="Seçileni Sil", command=self._delete_yedek).pack(side=tk.LEFT, padx=5, pady=5)
-        ttk.Button(btn_frame, text="Seçileni Düzenle", command=self._edit_yedek_dialog).pack(side=tk.LEFT, padx=5, pady=5)
+        btn_frame = ttk.LabelFrame(parent, text="İşlemler", padding=10, style="Card.TLabelframe")
+        btn_frame.pack(fill=tk.X, padx=10, pady=6)
+        ttk.Button(btn_frame, text="Yedek Ekle", style="Accent.TButton", command=self._add_yedek_dialog).pack(side=tk.LEFT, padx=6, pady=2)
+        ttk.Button(btn_frame, text="Seçileni Sil", command=self._delete_yedek).pack(side=tk.LEFT, padx=6, pady=2)
+        ttk.Button(btn_frame, text="Seçileni Düzenle", command=self._edit_yedek_dialog).pack(side=tk.LEFT, padx=6, pady=2)
 
-        tree_frame = ttk.Frame(parent)
-        tree_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        tree_frame = ttk.Frame(parent, padding=(0, 6))
+        tree_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=(0, 10))
 
         columns = [
             "id",
@@ -219,15 +242,31 @@ class MainApp:
         for item in self.spindle_tree.get_children():
             self.spindle_tree.delete(item)
         rows = rows if rows is not None else self.spindle_manager.all_records()
-        for row in rows:
-            self.spindle_tree.insert("", tk.END, values=[row.get(col, "") for col in self.spindle_tree["columns"]])
+        for idx, row in enumerate(rows):
+            tag = "even" if idx % 2 == 0 else "odd"
+            self.spindle_tree.insert(
+                "",
+                tk.END,
+                values=[row.get(col, "") for col in self.spindle_tree["columns"]],
+                tags=(tag,),
+            )
+        self.spindle_tree.tag_configure("even", background="#f7f7f9")
+        self.spindle_tree.tag_configure("odd", background="#ffffff")
 
     def _refresh_yedek_tree(self, rows=None):
         for item in self.yedek_tree.get_children():
             self.yedek_tree.delete(item)
         rows = rows if rows is not None else self.yedek_manager.all_records()
-        for row in rows:
-            self.yedek_tree.insert("", tk.END, values=[row.get(col, "") for col in self.yedek_tree["columns"]])
+        for idx, row in enumerate(rows):
+            tag = "even" if idx % 2 == 0 else "odd"
+            self.yedek_tree.insert(
+                "",
+                tk.END,
+                values=[row.get(col, "") for col in self.yedek_tree["columns"]],
+                tags=(tag,),
+            )
+        self.yedek_tree.tag_configure("even", background="#f7f7f9")
+        self.yedek_tree.tag_configure("odd", background="#ffffff")
 
     def _open_spindle_dialog(self, title, on_submit, initial=None):
         dialog = tk.Toplevel(self.root)
@@ -448,16 +487,26 @@ def show_login():
     login_root.geometry(LOGIN_WINDOW_SIZE)
     login_root.resizable(False, False)
 
-    frame = ttk.Frame(login_root, padding=40)
-    frame.place(relx=0.5, rely=0.22, anchor="n")
+    style = ttk.Style()
+    if "clam" in style.theme_names():
+        style.theme_use("clam")
+    style.configure("LoginCard.TFrame", padding=30)
+    style.configure("TLabel", font=("Segoe UI", 10))
+    style.configure("TEntry", font=("Segoe UI", 11), padding=(6, 4))
+    style.configure("Accent.TButton", padding=(12, 6))
 
-    ttk.Label(frame, text="Kullanıcı Adı").grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
-    user_entry = ttk.Entry(frame, width=32)
-    user_entry.grid(row=0, column=1, padx=10, pady=10)
+    login_root.configure(background="#f3f4f6")
 
-    ttk.Label(frame, text="Şifre").grid(row=1, column=0, padx=10, pady=10, sticky=tk.W)
-    pass_entry = ttk.Entry(frame, show="*", width=32)
-    pass_entry.grid(row=1, column=1, padx=10, pady=10)
+    frame = ttk.Frame(login_root, style="LoginCard.TFrame")
+    frame.place(relx=0.5, rely=0.18, anchor="n")
+
+    ttk.Label(frame, text="Kullanıcı Adı").grid(row=0, column=0, padx=14, pady=12, sticky=tk.W)
+    user_entry = ttk.Entry(frame, width=34)
+    user_entry.grid(row=0, column=1, padx=14, pady=12)
+
+    ttk.Label(frame, text="Şifre").grid(row=1, column=0, padx=14, pady=12, sticky=tk.W)
+    pass_entry = ttk.Entry(frame, show="*", width=34)
+    pass_entry.grid(row=1, column=1, padx=14, pady=12)
 
     def attempt_login(event=None):
         username = user_entry.get().strip()
@@ -469,11 +518,11 @@ def show_login():
         else:
             messagebox.showerror("Hata", "Kullanıcı adı veya şifre hatalı.")
 
-    login_button = ttk.Button(frame, text="Giriş", command=attempt_login)
+    login_button = ttk.Button(frame, text="Giriş", style="Accent.TButton", command=attempt_login)
     login_button.grid(row=2, column=0, columnspan=2, pady=10)
 
-    footer = ttk.Frame(login_root)
-    footer.pack(side=tk.BOTTOM, fill=tk.X, padx=20, pady=15)
+    footer = ttk.Frame(login_root, style="LoginCard.TFrame")
+    footer.place(relx=1.0, rely=1.0, anchor="se", x=-20, y=-15)
     ttk.Label(footer, text="Created by: Arda UÇAK").pack(side=tk.RIGHT)
 
     login_root.bind("<Return>", attempt_login)
