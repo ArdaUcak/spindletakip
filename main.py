@@ -148,7 +148,6 @@ class MainApp:
         base_font = ("Segoe UI", 10)
         style.configure("TLabel", font=base_font)
         style.configure("Header.TLabel", font=("Segoe UI", 16, "bold"))
-        style.configure("Horse.TLabel", font=("Segoe UI", 12, "bold"))
         style.configure("Subheader.TLabel", font=("Segoe UI", 10))
         style.configure("Accent.TButton", padding=(12, 6))
         style.configure("TEntry", padding=(4, 2))
@@ -168,14 +167,13 @@ class MainApp:
     def _build_ui(self):
         header = ttk.Frame(self.root, padding=(12, 8))
         header.pack(fill=tk.X)
+        header.columnconfigure(0, weight=1)
         header.columnconfigure(1, weight=1)
-        header.columnconfigure(2, weight=1)
 
         ttk.Label(header, text=APP_TITLE, style="Header.TLabel").grid(row=0, column=0, sticky=tk.W)
-        ttk.Label(header, text="HORSE", style="Horse.TLabel").grid(row=0, column=1)
 
         self.datetime_label = ttk.Label(header, text=current_datetime_text(), style="Subheader.TLabel")
-        self.datetime_label.grid(row=0, column=2, sticky=tk.E)
+        self.datetime_label.grid(row=0, column=1, sticky=tk.E)
 
         notebook = ttk.Notebook(self.root)
         notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
