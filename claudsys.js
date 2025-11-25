@@ -135,15 +135,32 @@ function handleRequest(req, res, port) {
   res.end('Not Found');
 }
 
-function startServer(port = DEFAULT_PORT) {
-  const server = http.createServer((req, res) => handleRequest(req, res, port));
-  server.listen(port, '0.0.0.0', () => {
-    console.log(`Claudsys running on http://${getLanAddress(port)} (LAN) and http://localhost:${port}`);
-  });
+function startServer(startPort = DEFAULT_PORT, maxAttempts = 10) {
+  let attempt = 0;
 
-  server.on('error', (err) => {
-    console.error('Server error:', err);
-  });
+  function tryListen(port) {
+    const server = http.createServer((req, res) => handleRequest(req, res, port));
+
+    server.on('error', (err) => {
+      if (err.code === 'EADDRINUSE' && attempt < maxAttempts) {
+        const nextPort = port + 1;
+        attempt += 1;
+        console.warn(`Port ${port} in use, attempting ${nextPort}...`);
+        setTimeout(() => tryListen(nextPort), 250);
+        return;
+      }
+      console.error('Server error:', err);
+    });
+
+    server.listen(port, '0.0.0.0', () => {
+      if (port !== startPort) {
+        console.log(`Using fallback port ${port} after conflicts.`);
+      }
+      console.log(`Claudsys running on http://${getLanAddress(port)} (LAN) and http://localhost:${port}`);
+    });
+  }
+
+  tryListen(startPort);
 }
 
 if (require.main === module) {
