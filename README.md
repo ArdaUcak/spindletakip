@@ -31,7 +31,7 @@ python main.py
 The login window appears first; after entering the credentials, the main notebook opens with the Spindle and Yedek tabs.
 
 - `node claudsys.js` komutu, 0.0.0.0 üzerinde **STS-SpindleTakipSistemi** web arayüzünü sunar (varsayılan port **8000**, `CLAUDSYS_PORT` ile değiştirilebilir; port doluysa otomatik olarak bir sonraki porta geçer ve konsola bildirir).【F:claudsys.js†L1-L22】【F:claudsys.js†L334-L367】
-- Tarayıcıda `http://<sunucu-ip>:<port>` (veya `/launch`) adresine gidince masaüstü akışını taklit eden tam ekran bir SPA açılır: aynı **BAKIM/MAXIME** girişi web üzerinde zorunlu, ardından sekmeli Spindle/Yedek listeleri, modal ekle/düzenle diyalogları ve Referans ID ile arama çubukları çıkar. CSV dışa aktarımı, satır düzenleme/silme ve otomatik **GG-AA-YYYY** tarih damgası masaüstüyle ortak CSV dosyalarında çalışır. Yanıtlar `Cache-Control: no-store` ile sunulur, böylece her yenilemede güncel arayüz yüklenir.【F:claudsys.js†L24-L325】【F:claudsys.js†L327-L367】
+- Tarayıcıda `http://<sunucu-ip>:<port>` (veya `/launch`) adresine gidince masaüstü akışını taklit eden tam ekran bir SPA doğrudan açılır; giriş adımı yoktur. Sekmeli Spindle/Yedek listeleri, modal ekle/düzenle diyalogları ve Referans ID ile arama çubukları web üzerinden çalışır. CSV dışa aktarımı, satır düzenleme/silme ve otomatik **GG-AA-YYYY** tarih damgası masaüstüyle ortak CSV dosyalarında ilerler. Yanıtlar `Cache-Control: no-store` ile sunulur, böylece her yenilemede güncel arayüz yüklenir.【F:claudsys.js†L24-L325】【F:claudsys.js†L327-L367】
 
 ## Depo Adı
 Depo adı **spindletakip** olarak güncellense de uygulama dosyaları (örneğin `main.py`) aynen korunur; mevcut dizinden (`spindletakip2` klasörü) çalıştırmaya devam edebilirsiniz.

@@ -292,11 +292,7 @@ function htmlPage(port) {
     .modal h3 { margin-top: 0; }
     .modal form { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 12px 16px; }
     .modal .actions { grid-column: 1 / -1; display: flex; gap: 10px; justify-content: flex-end; margin-top: 6px; }
-    .login-mask { position: fixed; inset: 0; background: linear-gradient(135deg, #eef1f6, #f8f9fb); display: flex; align-items: center; justify-content: center; z-index: 20; }
-    .login-card { width: 380px; background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 16px 32px var(--shadow); padding: 28px; display: grid; gap: 12px; }
-    .login-card h1 { margin: 0; font-size: 22px; text-align: center; }
-    .login-card button { width: 100%; }
-    .login-footer { text-align: right; font-size: 12px; color: #555; }
+    .login-mask { display:none; }
   `;
 
   const script = `
@@ -425,28 +421,9 @@ function htmlPage(port) {
       });
     }
 
-    function unlockApp() {
-      document.querySelector('.login-mask').style.display = 'none';
-      switchTab('spindle');
-      attachEvents();
-      loadTables();
-    }
-
-    function bindLogin() {
-      const form = document.getElementById('login-form');
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const user = form.querySelector('[name="user"]').value.trim();
-        const pass = form.querySelector('[name="pass"]').value.trim();
-        if (user === '${LOGIN_USER}' && pass === '${LOGIN_PASS}') {
-          unlockApp();
-        } else {
-          alert('Kullanıcı adı veya şifre hatalı');
-        }
-      });
-    }
-
-    bindLogin();
+    switchTab('spindle');
+    attachEvents();
+    loadTables();
   `;
 
   return `<!doctype html>
@@ -463,23 +440,6 @@ function htmlPage(port) {
     <div style="text-align:center; font-weight:600;">Tarayıcıdan Spindle & Yedek Yönetimi</div>
     <div id="clock" class="clock"></div>
   </header>
-  <div class="login-mask">
-    <div class="login-card">
-      <h1>Giriş Ekranı</h1>
-      <form id="login-form" style="display:grid; gap:10px;">
-        <div>
-          <label>Kullanıcı Adı</label>
-          <input name="user" required />
-        </div>
-        <div>
-          <label>Şifre</label>
-          <input type="password" name="pass" required />
-        </div>
-        <button type="submit">Giriş</button>
-      </form>
-      <div class="login-footer">Created by: Arda UÇAK</div>
-    </div>
-  </div>
   <div class="container">
     <div class="card">
       <div class="tabs">
