@@ -30,10 +30,10 @@ python main.py
 ```
 The login window appears first; after entering the credentials, the main notebook opens with the Spindle and Yedek tabs.
 
-### Claudsys (LAN başlatıcı)
-- `node claudsys.js` komutuyla 0.0.0.0 üzerinde küçük bir web arayüzü açılır (varsayılan port **8000**, `CLAUDSYS_PORT` ile değiştirilebilir; port doluysa otomatik olarak bir sonraki müsait porta geçilir ve konsola bildirilir).
-- Tarayıcıdan aynı ağdaki cihazlarda `http://<sunucu-ip>:<port>` adresine gidip **STS GUI'yi Başlat** düğmesine basarak bu makinede `main.py` uygulamasını (varsayılan Python komutu `python`, `CLAUDSYS_PYTHON` ile özelleştirilebilir) başlatabilirsiniz.
-- Sayfa, çalıştırma durumunu gösterir; GUI zaten açıksa düğme pasifleşir.
+### Claudsys (web tabanlı STS)
+- `node claudsys.js` komutu, 0.0.0.0 üzerinde **STS-SpindleTakipSistemi** için tam web arayüzünü sunar (varsayılan port **8000**, `CLAUDSYS_PORT` ile değiştirilebilir; port doluysa otomatik olarak bir sonraki porta geçer ve konsola bildirir).【F:claudsys.js†L1-L22】【F:claudsys.js†L340-L371】
+- Tarayıcıdan `http://<sunucu-ip>:<port>` adresine giderek Spindle ve Yedek kayıtlarını ekleyip/güncelleyip/silebilir, Referans ID ile arayabilir ve doğrudan CSV dışa aktarımı tetikleyebilirsiniz. Tüm işlemler aynı CSV dosyalarını (`spindle_data.csv`, `yedek_data.csv`, `takip_export.csv`) kullanır ve **GG-AA-YYYY** tarih damgası otomatik uygulanır.【F:claudsys.js†L24-L182】【F:claudsys.js†L185-L324】
+- Web formu, masaüstü sürümündeki alanların tamamını içerir: Spindle için **Referans ID**, **Çalışma Saati**, **Takılı Olduğu Makine**, **Makinaya Takıldığı Tarih**; Yedek için **Referans ID**, **Açıklama**, **Tamirde mi (Evet/Hayır)**, **Bakıma Gönderilme**, **Geri Dönme**, **Söküldüğü Makine**, **Sökülme Tarihi**. Satır bazlı düğmelerle düzenleme ve silme yapılır, üst kısımdaki arama kutuları anlık filtre sağlar.【F:claudsys.js†L186-L324】
 
 ## Depo Adı
 Depo adı **spindletakip** olarak güncellense de uygulama dosyaları (örneğin `main.py`) aynen korunur; mevcut dizinden (`spindletakip2` klasörü) çalıştırmaya devam edebilirsiniz.
