@@ -106,8 +106,14 @@ function sendJson(res, status, data) {
   res.end(body);
 }
 
-function sendText(res, status, text, contentType = 'text/plain; charset=utf-8') {
-  res.writeHead(status, { 'Content-Type': contentType });
+function sendText(res, status, text, contentType = 'text/plain; charset=utf-8', extraHeaders = {}) {
+  res.writeHead(status, {
+    'Content-Type': contentType,
+    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+    Pragma: 'no-cache',
+    Expires: '0',
+    ...extraHeaders,
+  });
   res.end(text);
 }
 
@@ -560,9 +566,17 @@ function htmlPage(port) {
 
 function startServer(port) {
   const server = http.createServer((req, res) => {
-    if (req.url.startsWith('/api/')) {
+    const pathname = new URL(req.url, `http://${req.headers.host}`).pathname;
+
+    if (pathname.startsWith('/api/')) {
       return handleApi(req, res);
     }
+
+    if (pathname === '/' || pathname === '/launch') {
+      return sendText(res, 200, htmlPage(port), 'text/html; charset=utf-8');
+    }
+
+    // Any other path falls back to the SPA with no-cache headers so stale launch pages are not reused.
     return sendText(res, 200, htmlPage(port), 'text/html; charset=utf-8');
   });
 
