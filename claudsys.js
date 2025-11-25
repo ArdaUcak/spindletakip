@@ -6,7 +6,7 @@ const { URL } = require('url');
 
 const DEFAULT_PORT = parseInt(process.env.CLAUDSYS_PORT || '8000', 10);
 const HOST = '0.0.0.0';
-const BASE_DIR = __dirname;
+const DATA_DIR = path.resolve(process.env.CLAUDSYS_DATA_DIR || __dirname);
 const LOGIN_USER = 'BAKIM';
 const LOGIN_PASS = 'MAXIME';
 
@@ -32,9 +32,9 @@ const YEDEK_HEADERS = [
 ];
 
 const FILES = {
-  spindle: path.join(BASE_DIR, 'spindle_data.csv'),
-  yedek: path.join(BASE_DIR, 'yedek_data.csv'),
-  export: path.join(BASE_DIR, 'takip_export.csv'),
+  spindle: path.join(DATA_DIR, 'spindle_data.csv'),
+  yedek: path.join(DATA_DIR, 'yedek_data.csv'),
+  export: path.join(DATA_DIR, 'takip_export.csv'),
 };
 
 const DATE_FORMATTER = new Intl.DateTimeFormat('tr-TR', {
@@ -49,6 +49,7 @@ function todayDate() {
 }
 
 function ensureCsv(filePath, headers) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
   if (!fs.existsSync(filePath)) {
     fs.writeFileSync(filePath, headers.join(',') + os.EOL, 'utf8');
   }
@@ -103,6 +104,9 @@ function sendJson(res, status, data) {
   const body = JSON.stringify(data);
   res.writeHead(status, {
     'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+    Pragma: 'no-cache',
+    Expires: '0',
     'Content-Length': Buffer.byteLength(body),
   });
   res.end(body);
@@ -431,13 +435,14 @@ function htmlPage(port) {
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-store" />
 <title>Claudsys – STS Web</title>
 <style>${style}</style>
 </head>
 <body>
   <header>
     <div class="title">STS-SpindleTakipSistemi (Web)</div>
-    <div style="text-align:center; font-weight:600;">Tarayıcıdan Spindle & Yedek Yönetimi</div>
+    <div style="text-align:center; font-weight:600;">Tarayıcıdan Spindle & Yedek Yönetimi (masaüstü açılmaz)</div>
     <div id="clock" class="clock"></div>
   </header>
   <div class="container">
