@@ -30,6 +30,11 @@ python main.py
 ```
 The login window appears first; after entering the credentials, the main notebook opens with the Spindle and Yedek tabs.
 
+### Claudsys (LAN başlatıcı)
+- `python claudsys.py` komutuyla 0.0.0.0 üzerinde küçük bir web arayüzü açılır (varsayılan port **8000**, `CLAUDSYS_PORT` ile değiştirilebilir).
+- Tarayıcıdan aynı ağdaki cihazlarda `http://<sunucu-ip>:8000` adresine gidip **Launch STS GUI** düğmesine basarak bu makinede `main.py` uygulamasını başlatabilirsiniz.
+- Sayfa, çalıştırma durumunu gösterir; GUI zaten açıksa düğme pasifleşir.
+
 ## Depo Adı
 Depo adı **spindletakip** olarak güncellense de uygulama dosyaları (örneğin `main.py`) aynen korunur; mevcut dizinden (`spindletakip2` klasörü) çalıştırmaya devam edebilirsiniz.
 
